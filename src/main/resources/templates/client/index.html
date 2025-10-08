@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://ultraq.github.io/thymeleaf-layout-dialect" layout:decorate="~{layouts/app}">
+<head>
+  <title layout:fragment="title">Espace Client Abonné</title>
+  <meta charset="utf-8"/>
+</head>
+<body>
+  <main class="container py-4" layout:fragment="content">
+    <h1 class="h4">Client Abonné</h1>
+    <ul>
+      <li><a th:href="@{/client/shipments}">Mes envois</a></li>
+      <li><a th:href="@{/client/invoices}">Mes factures</a></li>
+    </ul>
+  </main>
+</body>
+</html>
+

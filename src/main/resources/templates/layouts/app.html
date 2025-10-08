@@ -12,6 +12,11 @@
     <div class="navbar-brand">Colis Pro</div>
     <div class="ms-auto">
       <a class="btn btn-outline-secondary btn-sm me-2" th:href="@{/}">Accueil</a>
+      <a class="btn btn-outline-secondary btn-sm me-2" th:href="@{/passenger}">Passager</a>
+      <a class="btn btn-outline-secondary btn-sm me-2" th:href="@{/suivie}">Suivi</a>
+      <a class="btn btn-outline-secondary btn-sm me-2" sec:authorize="hasAnyRole('ADMIN','AGENT')" th:href="@{/agent}">Agent</a>
+      <a class="btn btn-outline-secondary btn-sm me-2" sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Admin</a>
+      <a class="btn btn-outline-secondary btn-sm me-2" sec:authorize="hasRole('CLIENT_ABONNE')" th:href="@{/client}">Client</a>
       <span sec:authorize="isAuthenticated()">
         <a class="btn btn-outline-secondary btn-sm" th:href="@{/logout}">Déconnexion</a>
       </span>
