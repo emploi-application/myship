@@ -1,0 +1,39 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta charset="utf-8"/>
+  <title>Accueil</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+  <header>
+    <span th:text="${user != null ? user.username : 'Invité'}"></span>
+    <a th:if="${user != null}" th:href="@{/logout}">Déconnexion</a>
+    <a th:if="${user == null}" th:href="@{/login}">Connexion</a>
+  </header>
+
+  <h1>Colis Pro</h1>
+
+  <section sec:authorize="hasRole('ADMIN')">
+    <h2>Espace Admin</h2>
+    <ul>
+      <li><a th:href="@{/admin}">Administration</a></li>
+    </ul>
+  </section>
+
+  <section sec:authorize="hasAnyRole('ADMIN','AGENT')">
+    <h2>Espace Agent</h2>
+    <ul>
+      <li><a th:href="@{/agent}">Guichet</a></li>
+    </ul>
+  </section>
+
+  <section sec:authorize="hasRole('CLIENT_ABONNE')">
+    <h2>Espace Client Abonné</h2>
+    <ul>
+      <li><a th:href="@{/client}">Mes envois</a></li>
+    </ul>
+  </section>
+</body>
+</html>
+
