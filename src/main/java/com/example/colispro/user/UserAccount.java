@@ -1,4 +1,4 @@
-package com.example.colispro.user;
+package tn.poste.myship.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
