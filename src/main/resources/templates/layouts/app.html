@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://ultraq.github.io/thymeleaf-layout-dialect">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://ultraq.github.io/thymeleaf-layout-dialect" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -12,8 +12,12 @@
     <div class="navbar-brand">Colis Pro</div>
     <div class="ms-auto">
       <a class="btn btn-outline-secondary btn-sm me-2" th:href="@{/}">Accueil</a>
-      <a class="btn btn-outline-secondary btn-sm" th:if="${#httpServletRequest.remoteUser != null}" th:href="@{/logout}">Déconnexion</a>
-      <a class="btn btn-primary btn-sm" th:if="${#httpServletRequest.remoteUser == null}" th:href="@{/login}">Connexion</a>
+      <span sec:authorize="isAuthenticated()">
+        <a class="btn btn-outline-secondary btn-sm" th:href="@{/logout}">Déconnexion</a>
+      </span>
+      <span sec:authorize="isAnonymous()">
+        <a class="btn btn-primary btn-sm" th:href="@{/login}">Connexion</a>
+      </span>
     </div>
   </header>
 
