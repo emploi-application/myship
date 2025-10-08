@@ -3,24 +3,31 @@
 <head>
   <meta charset="utf-8"/>
   <title>Connexion</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
   <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
-  <h1>Connexion</h1>
-  <form th:action="@{/login}" method="post">
-    <div>
-      <label>Email</label>
-      <input type="text" name="username" required/>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <h1 class="h4 mb-3">Connexion</h1>
+        <form th:action="@{/login}" method="post" class="card card-body">
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" type="text" name="username" required/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mot de passe</label>
+            <input class="form-control" type="password" name="password" required/>
+          </div>
+          <button class="btn btn-primary w-100" type="submit">Se connecter</button>
+        </form>
+        <div class="text-danger mt-2" th:if="${param.error}">Identifiants invalides</div>
+        <div class="text-success mt-2" th:if="${param.logout}">Déconnecté</div>
+        <a class="d-block mt-3" th:href="@{/}">Retour</a>
+      </div>
     </div>
-    <div>
-      <label>Mot de passe</label>
-      <input type="password" name="password" required/>
-    </div>
-    <button type="submit">Se connecter</button>
-  </form>
-  <div th:if="${param.error}">Identifiants invalides</div>
-  <div th:if="${param.logout}">Déconnecté</div>
-  <a th:href="@{/}">Retour</a>
+  </div>
  </body>
 </html>
 
