@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+<head>
+    <title>Reçu Collectif - Dépôt Passager</title>
+    <style>
+        .receipt-container {
+            max-width: 800px;
+            margin: 1rem auto;
+            background: white;
+            padding: 1.5rem;
+            border: 2px solid #005BAE;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,91,174,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #005BAE;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .summary-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .parcel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .parcel-table th {
+            background: #005BAE;
+            color: white;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .parcel-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .total-section {
+            background: #e7f7ef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            .receipt-container, .receipt-container * { visibility: visible; }
+            .receipt-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0.5cm;
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            .action-buttons { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content1">
+    <div class="receipt-container">
+        <!-- En-tête -->
+        <div class="header">
+            <h2 style="color: #005BAE;">LA POSTE TUNISIENNE</h2>
+            <p style="font-weight: bold; color: #005BAE;">AGENCE RAPIDE POSTE SFAX ELBOUSTEN</p>
+            <p>Reçu Collectif de Dépôt Passager</p>
+            <p th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy à HH:mm')}"></p>
+        </div>
+
+        <!-- Résumé -->
+        <div class="summary-section">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <h5 style="color: #005BAE;">Nombre d'Envois</h5>
+                    <h3 th:text="${trackingCount}" style="color: #005BAE;">0</h3>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="color: #005BAE;">Montant Total</h5>
+                    <h3 th:text="${totalAmount} + ' TND'" style="color: #005BAE;">0 TND</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau des envois -->
+        <h4 style="color: #005BAE; border-bottom: 1px solid #005BAE; padding-bottom: 0.5rem;">
+            <i class="bi bi-list-check me-2"></i>Détail des Envois
+        </h4>
+
+        <table class="parcel-table">
+            <thead>
+            <tr>
+                <th>N° Suivi</th>
+                <th>Destinataire</th>
+                <th>Poids</th>
+                <th>Prix</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="parcel : ${parcels}">
+                <td>
+                    <strong th:text="${parcel.trackingNumber.formattedParcelId}"></strong>
+                </td>
+                <td>
+                    <div th:if="${parcel.receiver != null}">
+                        <strong th:text="${parcel.receiver.recName}"></strong><br>
+                        <small th:text="${parcel.receiver.recTel}"></small>
+                    </div>
+                </td>
+                <td th:text="${parcel.weight} + ' kg'"></td>
+                <td th:text="${parcel.price} + ' TND'" style="font-weight: bold; color: #2ecc71;"></td>
+                <td th:text="${#temporals.format(parcel.trackingNumber.createdAt, 'dd/MM/yyyy')}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Total -->
+        <div class="total-section">
+            <h3>MONTANT TOTAL COLLECTIF:
+                <span th:text="${totalAmount} + ' TND'" style="color: #005BAE;"></span>
+            </h3>
+        </div>
+
+        <!-- Informations Expéditeur (du premier colis) -->
+        <div th:if="${parcels != null and !parcels.empty}"
+             style="margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <h5 style="color: #005BAE; border-bottom: 1px solid #005BAE; padding-bottom: 0.5rem;">
+                <i class="bi bi-person-circle me-2"></i>Expéditeur
+            </h5>
+            <div th:with="firstParcel=${parcels[0]}">
+                <div th:if="${firstParcel.sender != null}">
+                    <strong th:text="${firstParcel.sender.sendName}"></strong><br>
+                    <span th:text="${firstParcel.sender.sendTel}"></span> |
+                    <span th:text="${firstParcel.sender.adress}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.8rem; color: #666;">
+            <p>Conservez ce reçu pour toutes vos réclamations</p>
+            <p>Service Client: +216 70 000 000</p>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="action-buttons text-center mt-3">
+            <button onclick="window.print()" class="btn btn-primary">
+                <i class="bi bi-printer me-2"></i>Imprimer le Reçu Collectif
+            </button>
+            <a th:href="@{/welcome}" class="btn btn-outline-primary ms-2">
+                <i class="bi bi-house me-2"></i>Retour Accueil
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
