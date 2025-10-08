@@ -13,6 +13,14 @@ spring:
   thymeleaf:
     cache: false
 server:
+  forward-headers-strategy: framework
+  use-forward-headers: true
+  servlet:
+    session:
+      cookie:
+        secure: true
+        same-site: lax
+=======
   port: 6161
 
 app:

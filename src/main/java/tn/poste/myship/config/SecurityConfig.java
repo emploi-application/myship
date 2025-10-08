@@ -35,8 +35,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(reg -> reg
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                .requestMatchers("/login", "/").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**").permitAll()
+                .requestMatchers("/login", "/", "/error", "/favicon.ico", "/actuator/health").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/agent/**").hasAnyRole("ADMIN","AGENT")
                 .requestMatchers("/client/**").hasRole("CLIENT_ABONNE")
@@ -44,7 +44,8 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/", false)
+                .failureUrl("/login?error")
                 .permitAll()
             )
             .logout(logout -> logout
