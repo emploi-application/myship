@@ -1,45 +1,37 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/app}">
 <head>
+  <title layout:fragment="title">Accueil - Colis Pro</title>
   <meta charset="utf-8"/>
-  <title>Accueil</title>
-  <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.10.5/font/bootstrap-icons.css}"/>
 </head>
 <body>
-  <header class="navbar navbar-expand bg-body-tertiary px-3">
-    <div class="navbar-brand">Colis Pro</div>
-    <div class="ms-auto">
-      <span class="me-3" th:text="${user != null ? user.username : 'Invité'}"></span>
-      <a class="btn btn-outline-secondary btn-sm" th:if="${user != null}" th:href="@{/logout}">Déconnexion</a>
-      <a class="btn btn-primary btn-sm" th:if="${user == null}" th:href="@{/login}">Connexion</a>
-    </div>
-  </header>
-
-  <div class="container py-4">
+  <main class="container py-4" layout:fragment="content">
     <h1 class="h3 mb-4">Accueil</h1>
-
+    <p class="text-muted" th:if="${user == null}">Vous n'êtes pas connecté.</p>
+    <p class="text-muted" th:if="${user != null}">Bienvenue, <span th:text="${user.username}"></span>.</p>
     <section sec:authorize="hasRole('ADMIN')">
       <h2 class="h5">Espace Admin</h2>
       <ul>
         <li><a th:href="@{/admin}">Administration</a></li>
       </ul>
     </section>
-
     <section sec:authorize="hasAnyRole('ADMIN','AGENT')">
       <h2 class="h5">Espace Agent</h2>
       <ul>
         <li><a th:href="@{/agent}">Guichet</a></li>
       </ul>
     </section>
-
     <section sec:authorize="hasRole('CLIENT_ABONNE')">
       <h2 class="h5">Espace Client Abonné</h2>
       <ul>
         <li><a th:href="@{/client}">Mes envois</a></li>
       </ul>
     </section>
-  </div>
+  </main>
 </body>
 </html>
 
