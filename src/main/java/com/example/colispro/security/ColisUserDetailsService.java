@@ -3,6 +3,7 @@ package com.example.colispro.security;
 import com.example.colispro.user.UserAccount;
 import com.example.colispro.user.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
