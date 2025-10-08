@@ -20,9 +20,7 @@ server:
       cookie:
         secure: true
         same-site: lax
-=======
   port: 6161
-
 app:
   security:
     admin-email: admin
