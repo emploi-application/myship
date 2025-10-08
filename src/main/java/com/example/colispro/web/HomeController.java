@@ -1,4 +1,4 @@
-package com.example.colispro.web;
+package tn.poste.myship.web;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;

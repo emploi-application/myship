@@ -1,8 +1,8 @@
-package com.example.colispro.bootstrap;
+package tn.poste.myship.bootstrap;
 
-import com.example.colispro.user.Role;
-import com.example.colispro.user.UserAccount;
-import com.example.colispro.user.UserAccountRepository;
+import tn.poste.myship.user.Role;
+import tn.poste.myship.user.UserAccount;
+import tn.poste.myship.user.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;

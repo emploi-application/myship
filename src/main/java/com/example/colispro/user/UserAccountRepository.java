@@ -1,4 +1,4 @@
-package com.example.colispro.user;
+package tn.poste.myship.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
