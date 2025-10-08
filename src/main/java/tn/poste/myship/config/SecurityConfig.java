@@ -36,7 +36,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(reg -> reg
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/assets/**").permitAll()
-                .requestMatchers("/login", "/", "/error", "/favicon.ico", "/actuator/health").permitAll()
+                .requestMatchers("/login", "/", "/passenger", "/suivie", "/error", "/favicon.ico", "/actuator/health").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/agent/**").hasAnyRole("ADMIN","AGENT")
                 .requestMatchers("/client/**").hasRole("CLIENT_ABONNE")

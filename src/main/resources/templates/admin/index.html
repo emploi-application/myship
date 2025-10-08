@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://ultraq.github.io/thymeleaf-layout-dialect" layout:decorate="~{layouts/app}">
+<head>
+  <title layout:fragment="title">Administration</title>
+  <meta charset="utf-8"/>
+</head>
+<body>
+  <main class="container py-4" layout:fragment="content">
+    <h1 class="h4">Administration</h1>
+    <ul>
+      <li><a th:href="@{/admin/users}">Utilisateurs</a></li>
+      <li><a th:href="@{/admin/tariffs}">Tarifs</a></li>
+    </ul>
+  </main>
+</body>
+</html>
+
