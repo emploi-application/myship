@@ -14,6 +14,13 @@ spring:
     cache: false
 server:
   port: 8080
+  forward-headers-strategy: framework
+  use-forward-headers: true
+  servlet:
+    session:
+      cookie:
+        secure: true
+        same-site: lax
 
 app:
   security:
