@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title layout:fragment="title">Colis Pro</title>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+  <header class="navbar navbar-expand bg-body-tertiary px-3">
+    <div class="navbar-brand">Colis Pro</div>
+    <div class="ms-auto">
+      <a class="btn btn-outline-secondary btn-sm me-2" th:href="@{/}">Accueil</a>
+      <a class="btn btn-outline-secondary btn-sm" th:if="${#httpServletRequest.remoteUser != null}" th:href="@{/logout}">Déconnexion</a>
+      <a class="btn btn-primary btn-sm" th:if="${#httpServletRequest.remoteUser == null}" th:href="@{/login}">Connexion</a>
+    </div>
+  </header>
+
+  <main class="container py-4" layout:fragment="content">
+    <!-- Contenu -->
+  </main>
+
+  <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
+
