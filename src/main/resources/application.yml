@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/colispro}
+    url: ${DB_URL:jdbc:postgresql://localhost:31012/agence}
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD:123456Aa}
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,7 +13,6 @@ spring:
   thymeleaf:
     cache: false
 server:
-  port: 8080
   forward-headers-strategy: framework
   use-forward-headers: true
   servlet:
@@ -21,9 +20,11 @@ server:
       cookie:
         secure: true
         same-site: lax
+=======
+  port: 6161
 
 app:
   security:
-    admin-email: admin@colispro.local
-    admin-password: admin123
+    admin-email: admin
+    admin-password: admin
 
